@@ -6,17 +6,18 @@
 
 #if canImport(SwiftUI)
 
+import SequenceBuilder
 import SwiftUI
 
-struct EnumerationView<Content: Sequence>: View where Content.Element: View {
+public struct EnumerationView<Content: Sequence>: View where Content.Element: View {
 
     let content: Content
 
-    init(@SequenceBuilder builder: () -> Content) {
+    public init(@SequenceBuilder builder: () -> Content) {
         self.content = builder()
     }
 
-    var body: some View {
+    public var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             ForEach(sequence: content) { (index, content) in
                 HStack(alignment: .top) {
