@@ -30,7 +30,7 @@ struct Foo<S: Sequence> where S.Element: Key {
 }
 ```
 
-For this, you have to define how to handle heterogenous `Value`s by extending either:
+For this, you have to define how to handle heterogenous `Value`s by extending an `Either`-type:
 
 ```swift
 
