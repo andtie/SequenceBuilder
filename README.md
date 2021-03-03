@@ -3,8 +3,52 @@
 **SequenceBuilder** is a general purpose *Function Builder* / [*Result Builder*](https://github.com/apple/swift-evolution/blob/main/proposals/0289-result-builders.md)
 for Swift. It allows you to build arbitrary heterogenous sequences without loosing information about the underlying types.
 
-SequenceBuilder might be helpful for you if you have ever encountered the error message  `Protocol 'X' can only be used as a generic constraint because it has Self or associated type requirements`.
-It can be used for any kind of heterogenous sequence, but it is especially useful for building custom container views in **SwiftUI**.
+SequenceBuilder might be helpful for you if you have ever encountered the error message  `Protocol 'X' can only be used as a generic constraint because it has Self or associated type requirements`. For example:
+
+```swift
+protocol Key {
+    associatedtype Value
+}
+
+struct Foo {
+    let keys: [Key]
+    // ❌ Protocol 'Key' can only be used as a generic constraint because it has Self or associated type requirements
+}
+```
+
+With SequenceBuilder you can have sequences of types with associated type requirements.
+
+```swift
+import SequenceBuilder
+
+struct Foo<S: Sequence> where S.Element: Key {
+    let keys: S
+
+    init(@SequenceBuilder builder: () -> S) {
+        keys = builder()
+    }
+}
+```
+
+For this, you have to define how to handle heterogenous `Value`s by extending either:
+
+```swift
+
+extension Either: Key where Left: Key, Right: Key {
+    typealias Value = Either<Left.Value, Right.Value>
+}
+
+struct StringKey: Key { typealias Value = String }
+struct IntKey: Key { typealias Value = Int }
+
+let foo = Foo {
+    StringKey()
+    IntKey()
+}
+```
+
+This technique can be used for any kind of heterogenous sequence, but it is especially useful for building custom container views in **SwiftUI**.
+For views, the `Either`-type is already extended.
 
 You can use `@SequenceBuilder` like the `@ViewBuilder`-attribute in SwiftUI. As a result, you don't just get one view, but a sequence of individual views *without* resorting to `AnyView`.
 SequenceBuilder has the same limitation as ViewBuilder in that it currently only supports 10 Elements without nesting.
