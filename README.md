@@ -47,6 +47,8 @@ let foo = Foo {
 }
 ```
 
+## SwiftUI
+
 This technique can be used for any kind of heterogenous sequence, but it is especially useful for building custom container views in **SwiftUI**.
 For views, the `Either`-type is already extended.
 
