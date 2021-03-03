@@ -28,7 +28,6 @@ struct EnumerationView<Content: Sequence>: View where Content.Element: View {
     }
 }
 
-@available(OSX 11.0, *)
 struct EnumerationView_Previews: PreviewProvider {
     static var previews: some View {
         EnumerationView {

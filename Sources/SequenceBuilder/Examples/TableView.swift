@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-@available(OSX 11.0, iOS 14.0, *)
 protocol TableColumn {
     associatedtype Input: Hashable
     associatedtype Content: View
@@ -18,7 +17,6 @@ protocol TableColumn {
     func view(input: Input) -> Content
 }
 
-@available(OSX 11.0, iOS 14.0, *)
 extension Either: TableColumn where Left: TableColumn, Right: TableColumn, Left.Input == Right.Input {
     var title: String {
         switch self {
@@ -48,7 +46,6 @@ extension Either: TableColumn where Left: TableColumn, Right: TableColumn, Left.
     }
 }
 
-@available(OSX 11.0, iOS 14.0, *)
 struct TableView<Content: Sequence>: View where Content.Element: TableColumn {
 
     let data: [Content.Element.Input]
@@ -89,7 +86,6 @@ struct TableView<Content: Sequence>: View where Content.Element: TableColumn {
     }
 }
 
-@available(OSX 11.0, iOS 14.0, *)
 struct TableView_Previews: PreviewProvider {
 
     struct CodePointColumn: TableColumn {
