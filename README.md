@@ -7,9 +7,10 @@ SequenceBuilder might be helpful for you if you have ever encountered the error 
 It can be used for any kind of heterogenous sequence, but it is especially useful for building custom container views in **SwiftUI**.
 
 You can use `@SequenceBuilder` like the `@ViewBuilder`-attribute in SwiftUI. As a result, you don't just get one view, but a sequence of individual views *without* resorting to `AnyView`.
-SequenceBuilder has the same limitation as ViewBuilder in that it currently only support 10 Elements without nesting.
+SequenceBuilder has the same limitation as ViewBuilder in that it currently only supports 10 Elements without nesting.
 
-For a simple example, this view wraps its child views in an enumeration similar to an ordered HTML list ([Full example](Sources/SequenceBuilder/Examples/EnumerationView.swift)). 
+For a simple example, this view wraps its child views in an enumeration similar to an ordered HTML list ([Full example](Sources/SequenceBuilderExamples/EnumerationView.swift)).
+By constraining the sequence elements (`… where Content.Element: View`), we can store and iterate over the sequence for abritrary views.  
 ```swift
 import SequenceBuilder
 import SwiftUI
@@ -42,7 +43,7 @@ struct EnumerationView<Content: Sequence>: View where Content.Element: View {
 ```
 
 The elements of the heterogeneous sequence don't have to be views. For a more intricate example, where the SequenceBuilder is used to build
-a table out of columns, see [`TableView.swift`](Sources/SequenceBuilder/Examples/TableView.swift) in the examples folder.
+a table out of columns, see [`TableView.swift`](Sources/SequenceBuilderExamples/TableView.swift) in the examples folder.
 
 ## What kind of sorcery is this?
 
@@ -64,7 +65,7 @@ For every additional element in the sequence, another `Either` is nested inside 
 This growth of types is similar to the kind you get in SwiftUI. It seems to work fine, but it is probably not suitable for very large collections.  
 
 If you just want a collection of views, yout don't have to care about this implementation detail, because `Either` conforms to `View` if `Left` and `Right` also conform to `View`.  
-But if you want to use your own protocols with or without associated types, then you have to extend `Either` yourself like in the [`TableView.swift`](Sources/SequenceBuilder/Examples/TableView.swift) example.
+But if you want to use your own protocols with or without associated types, then you have to extend `Either` yourself like in the [`TableView.swift`](Sources/SequenceBuilderExamples/TableView.swift) example.
 
 ## Installation
 
