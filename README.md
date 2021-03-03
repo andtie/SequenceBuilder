@@ -80,11 +80,26 @@ struct EnumerationView<Content: Sequence>: View where Content.Element: View {
 }
 
 // Usage: 
-// EnumerationView {
-//    Text("Some text")
-//    ...
-// }
+EnumerationView {
+    Text("Some text")
+    VStack {
+        ForEach(0..<10, id: \.self) { _ in
+            Text("Lorem ipsum dolet.")
+        }
+    }
+    if true {
+        Text("More text")
+        Text("Enough text")
+    }
+    HStack {
+        Text("With image:")
+        Image(systemName: "checkmark")
+    }
+    Text("The ending")
+}
 ```
+
+![enumeration view example](enumeration.png "EnumerationView")
 
 The elements of the heterogeneous sequence don't have to be views. For a more intricate example, where the SequenceBuilder is used to build
 a table out of columns, see [`TableView.swift`](Sources/SequenceBuilderExamples/TableView.swift) in the examples folder.
