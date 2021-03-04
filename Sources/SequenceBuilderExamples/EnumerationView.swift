@@ -4,8 +4,6 @@
 // Created by Andreas in 2020
 //
 
-#if canImport(SwiftUI)
-
 import SequenceBuilder
 import SwiftUI
 
@@ -51,5 +49,3 @@ struct EnumerationView_Previews: PreviewProvider {
         .padding()
     }
 }
-
-#endif
