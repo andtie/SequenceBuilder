@@ -105,6 +105,7 @@ EnumerationView {
 
 The elements of the heterogeneous sequence don't have to be views. For a more intricate example, where the SequenceBuilder is used to build
 a table out of columns, see [`TableView.swift`](Sources/SequenceBuilderExamples/TableView.swift) in the examples folder.
+For a more advanced table view implementation, see [`SwiftTableView`](https://github.com/andtie/SwiftTableView).
 
 ## What kind of sorcery is this?
 
