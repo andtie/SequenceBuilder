@@ -12,10 +12,27 @@ public struct TableView<Column: ColumnProtocol, Style: TableStyle>: View where S
     let style: Style
     let configuration: TableStyleConfiguration<Style.Header, Style.Cell>
 
-    public init(style: Style, input: Column.Input, rowCount: Int, @SequenceBuilder builder: () -> [Column]) {
+    public init(style: Style, configuration: TableStyleConfiguration<Style.Header, Style.Cell>) {
+        self.style = style
+        self.configuration = configuration
+    }
+
+    public var body: some View {
+        style.makeBody(configuration: configuration)
+    }
+}
+
+extension TableView {
+    public func tableStyle<S: TableStyle>(style: S) -> some View where S.Cell == Column.Content, S.Header == Column.Header {
+        TableView<Column, S>(style: style, configuration: configuration)
+    }
+}
+
+extension TableView {
+    public init(input: Column.Input, rowCount: Int, @SequenceBuilder builder: () -> [Column]) where Style == DefaultTableStyle<Column.Header, Column.Content> {
         let columns = Array(builder())
         let gridItems = columns.map(\.gridItem)
-        self.style = style
+        self.style = DefaultTableStyle()
         self.configuration = TableStyleConfiguration(
             gridItems: gridItems,
             columns: columns.count,
@@ -25,22 +42,8 @@ public struct TableView<Column: ColumnProtocol, Style: TableStyle>: View where S
         )
     }
 
-    public var body: some View {
-        style.makeBody(configuration: configuration)
-    }
-}
-
-extension TableView {
-    public init(input: Column.Input, rowCount: Int, @SequenceBuilder builder: () -> [Column]) where Style == DefaultTableStyle<Column.Header, Column.Content> {
-        self.init(style: DefaultTableStyle(), input: input, rowCount: rowCount, builder: builder)
-    }
-
-    public init<C: Collection>(style: Style, collection: C, @SequenceBuilder builder: () -> [Column]) where C == Column.Input {
-        self.init(style: style, input: collection, rowCount: collection.count, builder: builder)
-    }
-
     public init<C: Collection>(collection: C, @SequenceBuilder builder: () -> [Column]) where C == Column.Input, Style == DefaultTableStyle<Column.Header, Column.Content> {
-        self.init(style: DefaultTableStyle(), input: collection, rowCount: collection.count, builder: builder)
+        self.init(input: collection, rowCount: collection.count, builder: builder)
     }
 }
 
