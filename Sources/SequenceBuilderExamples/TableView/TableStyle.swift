@@ -32,6 +32,8 @@ public struct TableStyleConfiguration<Header: View, Cell: View> {
 }
 
 public struct DefaultTableStyle<Header: View, Cell: View>: TableStyle {
+    public init() {}
+
     public func makeBody(configuration: TableStyleConfiguration<Header, Cell>) -> some View {
         VStack {
             LazyVGrid(columns: configuration.gridItems) {
@@ -40,7 +42,7 @@ public struct DefaultTableStyle<Header: View, Cell: View>: TableStyle {
                 }
             }
             .font(.headline)
-            Color.gray.frame(height: 1)
+            Color(UIColor.label).frame(height: 1)
             ScrollView {
                 LazyVGrid(columns: configuration.gridItems, spacing: 8) {
                     ForEach(0..<configuration.rows, id: \.self) { row in
