@@ -50,15 +50,15 @@ extension TableView {
 struct TableView_Previews: PreviewProvider {
     static var previews: some View {
         TableView(collection: (0...79).map { $0 + 0x1f600 }) {
-            Column(title: "Codepoint", alignment: .leading) { (input: Int) in
-                Text(String(format: "%02X", input))
-            }
-            Column(title: "Integer", alignment: .center) { (input: Int) in
-                Text(String(input))
-            }
-            Column(alignment: .trailing) { (input: Int) in
-                Text(String(Character(UnicodeScalar(input)!)))
-            }
+            Column { (input: Int) in Text(String(format: "%02X", input)) }
+                .title("Codepoint")
+                .alignment(.leading)
+            Column { (input: Int) in Text(String(input)) }
+                .title("Integer")
+                .alignment(.center)
+            Column { (input: Int) in Text(String(Character(UnicodeScalar(input)!))) }
+                .title("Emoji")
+                .alignment(.trailing)
         }
         .padding()
     }
