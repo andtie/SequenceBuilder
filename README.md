@@ -8,6 +8,7 @@ SequenceBuilder might be helpful for you if you have ever encountered the error 
 ```swift
 protocol Key {
     associatedtype Value
+    var value: Value { get }
 }
 
 struct Foo {
@@ -34,7 +35,9 @@ For this, you have to define how to handle heterogenous `Value`s by extending an
 
 ```swift
 extension Either: Key where Left: Key, Right: Key {
-    typealias Value = Either<Left.Value, Right.Value>
+    var value: Either<Left.Value, Right.Value> {
+        bimap(left: \.value, right: \.value)
+    }
 }
 ```
 
@@ -42,13 +45,21 @@ Then you can use `Foo` like this:
 
 ```swift
 
-struct StringKey: Key { typealias Value = String }
-struct IntKey: Key { typealias Value = Int }
+struct StringKey: Key { let value: String }
+struct IntKey: Key { let value: Int }
+struct FloatKey: Key { let value: Float }
 
 let foo = Foo {
-    StringKey()
-    IntKey()
+    StringKey(value: "-")
+    IntKey(value: 42)
+    FloatKey(value: 3.14)
 }
+
+// and later:
+let description = foo.keys
+    .map(\.value.description)
+    .joined(separator: ", ")
+// description is: "-, 42, 3.14"
 ```
 
 ## SwiftUI

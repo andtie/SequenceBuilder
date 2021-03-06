@@ -35,7 +35,7 @@ public enum SequenceBuilder {
 
     /// Just a workaround to satisfy the compiler.
     /// If we would directly specify `Either<TrueContent.Element, FalseContent.Element>` as a result of `buildEither`,
-    /// then it would complain that it cannot infer `FalseContent` / `TrueContent` since it is not passed as a paramter
+    /// then it would complain that it cannot infer `FalseContent` / `TrueContent` since it is not passed as a parameter
     public struct EitherSequence<L: Sequence, R: Sequence>: Sequence {
         public typealias S = [Either<L.Element, R.Element>]
 
