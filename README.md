@@ -33,10 +33,14 @@ struct Foo<S: Sequence> where S.Element: Key {
 For this, you have to define how to handle heterogenous `Value`s by extending an `Either`-type:
 
 ```swift
-
 extension Either: Key where Left: Key, Right: Key {
     typealias Value = Either<Left.Value, Right.Value>
 }
+```
+
+Then you can use `Foo` like this:
+
+```swift
 
 struct StringKey: Key { typealias Value = String }
 struct IntKey: Key { typealias Value = Int }
