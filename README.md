@@ -104,8 +104,7 @@ EnumerationView {
 ![enumeration view example](enumeration.png "EnumerationView")
 
 The elements of the heterogeneous sequence don't have to be views. For a more intricate example, where the SequenceBuilder is used to build
-a table out of columns, see [`TableView.swift`](Sources/SequenceBuilderExamples/TableView.swift) in the examples folder.
-For a more advanced table view implementation, see [`SwiftTableView`](https://github.com/andtie/SwiftTableView).
+a table out of columns, see [`SwiftTableView`](https://github.com/andtie/SwiftTableView).
 
 ## What kind of sorcery is this?
 
@@ -127,7 +126,7 @@ For every additional element in the sequence, another `Either` is nested inside 
 This growth of types is similar to the kind you get in SwiftUI. It seems to work fine, but it is probably not suitable for very large collections.  
 
 If you just want a collection of views, yout don't have to care about this implementation detail, because `Either` conforms to `View` if `Left` and `Right` also conform to `View`.  
-But if you want to use your own protocols with or without associated types, then you have to extend `Either` yourself like in the [`TableView.swift`](Sources/SequenceBuilderExamples/TableView.swift) example.
+But if you want to use your own protocols with or without associated types, then you have to extend `Either` yourself.
 
 ## Installation
 
