@@ -21,12 +21,7 @@ extension Either: View where Left: View, Right: View {
 
 extension Either: Identifiable where Left: Identifiable, Right: Identifiable, Left.ID == Right.ID {
     public var id: Left.ID {
-        switch self {
-        case let .left(identifiable):
-            return identifiable.id
-        case let .right(identifiable):
-            return identifiable.id
-        }
+        fold(left: \.id, right: \.id)
     }
 }
 
