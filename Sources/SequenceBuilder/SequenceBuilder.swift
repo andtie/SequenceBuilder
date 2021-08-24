@@ -4,7 +4,7 @@
 // Created by Andreas in 2020
 //
 
-@_functionBuilder
+@resultBuilder
 public enum SequenceBuilder {
 
     public typealias S1<C0, C1> = Either<C0, C1>
