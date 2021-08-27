@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "SequenceBuilder",
-    platforms: [.iOS(.v14), .macOS(.v11)],
+    platforms: [.macOS(.v11), .iOS(.v14), .watchOS(.v6), .tvOS(.v13)],
     products: [
         .library(name: "SequenceBuilder", targets: ["SequenceBuilder"]),
         .library(name: "SequenceBuilderExamples", targets: ["SequenceBuilderExamples"])
